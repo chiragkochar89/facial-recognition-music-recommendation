@@ -1,0 +1,86 @@
+# Beginner Guide: Setting Up the Facial Recognition and Music Recommendation Project
+
+## 1. Install Python
+
+- Download and install **Python 3.8 - 3.10** from [python.org](https://www.python.org/downloads/).
+- During installation, **check "Add Python to PATH"**.
+
+## 2. Open a Terminal or Command Prompt
+
+- On Windows: Press `Win + R`, type `cmd`, and hit Enter.
+- On Mac/Linux: Open your Terminal app.
+
+## 3. Clone the Repository
+
+```bash
+git clone https://github.com/PawanTheGod/Facial-recognition-and-music-recommendation.git
+cd Facial-recognition-and-music-recommendation
+```
+
+## 4. (Recommended) Create a Virtual Environment
+
+```bash
+python -m venv venv
+# Activate the environment:
+# On Windows:
+venv\Scripts\activate
+# On Mac/Linux:
+source venv/bin/activate
+```
+
+## 5. Upgrade pip
+
+```bash
+pip install --upgrade pip
+```
+
+## 6. Install All Required Libraries
+
+```bash
+pip install flask opencv-python tensorflow keras spotipy pandas
+```
+
+## 7. Download the FER2013 Dataset
+
+- Go to [Kaggle FER2013](https://www.kaggle.com/msambare/fer2013).
+- Download the dataset and place it in the project folder as needed for training.
+
+## 8. Set Up Spotify Credentials
+
+- Sign up for a [Spotify Developer account](https://developer.spotify.com/dashboard).
+- Create an app, then copy your **Client ID** and **Client Secret**.
+- Open `Spotipy.py` and enter your credentials where required.
+
+## 9. (Optional) If You Want to Train the Model
+
+```bash
+python train.py
+```
+- This will train the emotion recognition model (can take several hours!).
+
+## 10. Run the Flask Application
+
+```bash
+python app.py
+```
+- Grant camera permission if prompted.
+- Open your browser and go to `http://127.0.0.1:5000/` to use the app.
+
+## Troubleshooting
+
+- If you get an error about missing packages, re-run the install command in step 6.
+- If you have issues with OpenCV and camera, ensure your webcam is working and permissions are granted.
+- For Tensorflow errors, make sure you use Python 3.8-3.10. Newer Python versions may cause issues.
+- For Spotify errors, double-check your credentials and internet connection.
+
+## All Major Dependencies (with compatible versions):
+
+- **Python**: 3.8, 3.9, or 3.10
+- **Flask**: 2.x
+- **opencv-python**: 4.x
+- **Tensorflow**: 2.x
+- **Keras**: 2.x (bundled with Tensorflow)
+- **Spotipy**: latest
+- **Pandas**: 1.x or newer
+
+This guide ensures you avoid version conflicts and can run the project smoothly as a beginner!
