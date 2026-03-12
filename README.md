@@ -69,11 +69,11 @@ Display Results on Web Interface
 
 ### Emotion Detection
 
-![Emotion Detection](images/Demo1.png)
+![Emotion Detection](images/Demo1.jpg)
 
 ### Music Recommendation
 
-![Music Recommendation](images/Demo2.png)
+![Music Recommendation](images/Demo2.jpg)
 
 ---
 
