@@ -43,7 +43,6 @@ This creates a **more personalized and emotionally engaging music experience.**
 
 Below is the architecture of the system.
 
-![System Architecture](images/Architecture.png)
 
 ### Workflow
 
@@ -63,7 +62,7 @@ Display Results on Web Interface
 
 ## System Architecture
 
-![System Architecture](images/architecture.png)
+![System Architecture](images/Architecture.png)
 ---
 
 # 📷 Demo
