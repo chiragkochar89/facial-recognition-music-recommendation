@@ -43,7 +43,7 @@ This creates a **more personalized and emotionally engaging music experience.**
 
 Below is the architecture of the system.
 
-![System Architecture](images/architecture.png)
+![System Architecture](images/Architecture.png)
 
 ### Workflow
 
@@ -70,11 +70,11 @@ Display Results on Web Interface
 
 ### Emotion Detection
 
-![Emotion Detection](images/demo1.png)
+![Emotion Detection](images/Demo1.png)
 
 ### Music Recommendation
 
-![Music Recommendation](images/demo2.png)
+![Music Recommendation](images/Demo2.png)
 
 ---
 
