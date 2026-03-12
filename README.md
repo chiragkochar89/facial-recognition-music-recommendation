@@ -1,143 +1,185 @@
 # 🎵 Facial Recognition Based Music Recommendation System
 
-A smart web application that detects **facial emotions in real time** and recommends **music playlists based on the detected emotion** using **Deep Learning and Spotify API**.
+An AI-powered system that detects **facial emotions in real time** and recommends **music playlists based on the detected mood** using **Deep Learning, Computer Vision, and Spotify API**.
 
 ---
 
-## 📌 Project Overview
+# 📌 Project Overview
 
-This project uses a **Convolutional Neural Network (CNN)** trained on the **FER2013 dataset** to detect facial emotions from a webcam feed.
-Once an emotion is detected, the system recommends **music playlists from Spotify** that match the user’s mood.
+The **Facial Recognition and Music Recommendation System** integrates facial emotion detection with a music recommendation engine to provide a personalized listening experience.
 
-The application is built using **Python, OpenCV, TensorFlow/Keras, Flask, and Spotipy API**.
+The system captures facial expressions using a webcam, analyzes them using a deep learning model trained on the **FER2013 dataset**, and recommends suitable music based on the detected emotion.
 
----
-
-## 🎯 Key Features
-
-* 🎥 **Real-time facial emotion detection**
-* 🎵 **Automatic music recommendation based on mood**
-* 📡 **Spotify API integration using Spotipy**
-* 🧠 **Deep learning model trained on FER2013 dataset**
-* 🌐 **Web interface built with Flask**
-* ⚡ **Multithreading for smooth video streaming**
+This allows users to receive **dynamic music recommendations that match their mood in real time.**
 
 ---
 
-## 🧠 Emotions Detected
+# ❗ Problem Statement
+
+Traditional music recommendation systems depend on **user listening history or manual selection** and cannot understand the user's **real-time emotional state**.
+
+This project solves that problem by:
+
+* Detecting facial expressions
+* Identifying user emotions
+* Recommending music that matches the detected mood
+
+This creates a **more personalized and emotionally engaging music experience.**
+
+---
+
+# 🚀 Features
+
+* 🎥 Real-time facial emotion detection
+* 🎵 Emotion-based music recommendation
+* 🤖 Deep learning model for emotion classification
+* 🌐 Flask-based web application
+* 🔗 Spotify API integration using Spotipy
+* ⚡ Multi-threaded video processing for smooth performance
+
+---
+
+# 🏗 System Architecture
+
+Below is the architecture of the system.
+
+![System Architecture](images/architecture.png)
+
+### Workflow
+
+Webcam Input
+⬇
+Face Detection (OpenCV Haarcascade)
+⬇
+Emotion Detection Model (CNN trained on FER2013)
+⬇
+Emotion Classification
+⬇
+Spotify API
+⬇
+Music Recommendation
+⬇
+Display Results on Web Interface
+
+## System Architecture
+
+![System Architecture](images/architecture.png)
+---
+
+# 📷 Demo
+
+### Emotion Detection
+
+![Emotion Detection](images/demo1.png)
+
+### Music Recommendation
+
+![Music Recommendation](images/demo2.png)
+
+---
+
+# 🧠 Emotions Detected
 
 The model can detect the following **7 emotions**:
 
-* Angry
-* Disgust
-* Fear
 * Happy
 * Sad
+* Angry
 * Surprise
+* Fear
+* Disgust
 * Neutral
 
 ---
 
-## 🛠️ Tech Stack
+# 🛠 Tech Stack
 
-**Programming & Frameworks**
+### Programming Language
 
 * Python
-* Flask
 
-**Machine Learning / AI**
+### Machine Learning / AI
 
 * TensorFlow
 * Keras
 * OpenCV
 
-**API**
+### Web Framework
 
-* Spotipy (Spotify API Wrapper)
+* Flask
 
-**Testing Interface**
+### API Integration
 
-* Tkinter
+* Spotify API (Spotipy)
+
+### Other Libraries
+
+* NumPy
+* Pandas
+* Scikit-learn
 
 ---
 
-## 📂 Dataset
+# 📂 Project Structure
 
-The model is trained using the **FER2013 dataset**, which is a widely used dataset for facial emotion recognition.
+```
+facial-recognition-music-recommendation
+│
+├── app.py
+├── camera.py
+├── train.py
+├── utils.py
+├── Spotify.py
+├── model.h5
+├── requirements.txt
+├── haarcascade_frontalface_default.xml
+│
+├── templates
+│   └── index.html
+│
+├── images
+│   ├── architecture.png
+│   ├── demo1.png
+│   └── demo2.png
+│
+└── README.md
+```
+
+---
+
+# 📊 Dataset
+
+The model is trained using the **FER2013 Facial Emotion Recognition Dataset**.
 
 Dataset characteristics:
 
 * 48 × 48 grayscale images
 * 7 emotion classes
-* Highly imbalanced dataset
-
-Training accuracy achieved: **~66%**
+* Used for training CNN based emotion detection model
 
 ---
 
-## 🧱 Model Architecture
+# ▶️ How to Run the Project
 
-The deep learning model is a **Sequential CNN architecture** consisting of:
-
-* Conv2D layers (32–128 filters, ReLU activation)
-* MaxPooling layers (2×2)
-* Dropout layers (0.25)
-* Dense layers
-* Final **Softmax layer for 7-class emotion classification**
-
-**Loss Function:** Categorical Crossentropy
-**Optimizer:** Adam
-**Metric:** Accuracy
-
----
-
-## 🖼️ Image Processing & Training
-
-Image preprocessing steps:
-
-* Images resized to **48×48**
-* Converted to **grayscale**
-* Normalized pixel values
-* Batch size: **64**
-
-Training details:
-
-* Epochs: **75**
-* Training Time: **~13 hours**
-* Accuracy: **~66%**
-
----
-
-## ⚙️ Project Structure
+### 1️⃣ Clone the repository
 
 ```
-facial-recognition-music-recommendation
-│
-├── app.py                # Main Flask application
-├── camera.py             # Video capture and emotion prediction
-├── train.py              # Model training script
-├── utils.py              # Utility functions
-├── Spotipy.py            # Spotify API integration
-├── model.h5              # Trained emotion detection model
-├── requirements.txt      # Python dependencies
-├── haarcascade_frontalface_default.xml  # Face detection model
-└── templates/
-    └── index.html        # Web interface
+git clone https://github.com/yourusername/facial-recognition-music-recommendation.git
 ```
 
 ---
 
-## ▶️ Running the Application
-
-### 1️⃣ Install dependencies
+### 2️⃣ Install dependencies
 
 ```
 pip install -r requirements.txt
 ```
 
-### 2️⃣ Configure Spotify API
+---
 
-Open **Spotipy.py** and add your Spotify developer credentials.
+### 3️⃣ Configure Spotify API
+
+Open **Spotify.py** and add your Spotify developer credentials.
 
 ```
 client_id = "YOUR_CLIENT_ID"
@@ -146,55 +188,53 @@ redirect_uri = "YOUR_REDIRECT_URI"
 ```
 
 Create credentials at:
+
 https://developer.spotify.com/dashboard
 
 ---
 
-### 3️⃣ Run the application
+### 4️⃣ Run the application
 
 ```
 python app.py
 ```
 
-Allow **camera permission** when prompted.
-
-The application will start on:
+Open in browser:
 
 ```
 http://127.0.0.1:5000
 ```
 
----
-
-## ⚠️ Current Limitations
-
-* The application currently **cannot be deployed directly to cloud servers** because OpenCV accesses the **server-side webcam instead of the client webcam**.
-* Model accuracy is moderate (**~66%**) and can be improved with better training.
+Allow **camera permission** when prompted.
 
 ---
 
-## 🚀 Future Improvements
+# ⚠️ Limitations
 
-* Improve model accuracy using **Vision Transformer or improved CNN models**
-* Add **direct Spotify song playback**
-* Store playlists in a **database**
-* Update recommendation playlists automatically
-* Enable **client-side video streaming for cloud deployment**
+* Emotion detection accuracy depends on lighting and camera quality
+* Model accuracy may vary for different facial expressions
+* Cannot be deployed directly on cloud servers due to webcam dependency
 
 ---
 
-## 👨‍💻 Contributors
+# 🔮 Future Improvements
 
-* **Chirag Kochar**
-
----
-
-## 📜 License
-
-This project is for **educational and academic purposes**.
+* Improve emotion detection accuracy using advanced deep learning models
+* Enable client-side webcam streaming for cloud deployment
+* Add direct Spotify music playback
+* Implement personalized recommendation learning
 
 ---
 
-## ⭐ If you like this project
+# 👨‍💻 Contributors
 
-Give it a **star on GitHub ⭐**
+* Chirag Mahavir Kochar
+* Sumit Jibhau Bhamare
+* Pawan Shivaji Ghule
+* Rohan Balasaheb Bornare
+
+---
+
+# 📜 License
+
+This project is developed for **academic and educational purposes**.
