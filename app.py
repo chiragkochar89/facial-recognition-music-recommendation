@@ -1,102 +1,64 @@
-# from flask import Flask, render_template, Response, jsonify
-# import pandas as pd
-# from camera import *  # Assuming this handles the video feed
-
-# app = Flask(__name__)
-
-# headings = ("Song Name", "Album", "Artist", "Spotify Link", "Open in New Window")
-# df1 = music_rec()
-# df1 = df1.head(15)  # Keep only first 15 songs
-
-# @app.route('/')
-# def index():
-#     print(df1.to_json(orient='records'))
-#     return render_template('index.html', headings=headings, data=df1)
-
-# df1 = pd.DataFrame({
-#     'SongName': [
-#         'Blinding Lights - The Weeknd', 
-#         'Levitating - Dua Lipa', 
-#         'Shape of You - Ed Sheeran', 
-#         'Stay - The Kid LAROI, Justin Bieber', 
-#         'Save Your Tears - The Weeknd', 
-#         'Good 4 U - Olivia Rodrigo', 
-#         'Industry Baby - Lil Nas X, Jack Harlow', 
-#         'Excuses - AP Dhillon, gill', 
-#         'Brown Munde - Gminxr ,AP Dhillon', 
-#         'Khatam - Emiway Bantai', 
-#         'We Rollin - Shubh', 
-#         '295 - Sidhu Moose Wala', 
-#         'Yalgar- CarryMinati', 
-#         'SPACESHIP - AP Dhillon, Shinda Kahlon', 
-#         'As It Was - Harry Styles'
-#     ],
-#     'Album': [
-#         'After Hours', 'Future Nostalgia', 'Divide', 'F*ck Love', 'After Hours', 
-#         'SOUR', 'Montero', 'Planet Her', 'Montero', 'Justice', 'Heat Waves', 
-#         'Butter', 'Equals', 'Future Nostalgia', 'Harry\'s House'
-#     ],
-#     'Artist': [
-#         'The Weeknd', 'Dua Lipa', 'Ed Sheeran', 'The Kid LAROI, Justin Bieber', 'The Weeknd', 
-#         'Olivia Rodrigo', 'Lil Nas X, Jack Harlow', 'Doja Cat, SZA', 'Lil Nas X', 'Justin Bieber, Daniel Caesar, Giveon', 
-#         'Glass Animals', 'BTS', 'Ed Sheeran', 'Dua Lipa', 'Harry Styles'
-#     ]
-# })
-
-# # Assign Spotify URLs for the songs
-# df1['SpotifyUrl'] = [
-#     'https://open.spotify.com/track/0VjIjW4GlUZAMYd2vXMi3b?si=662177839521475a',
-#     'https://open.spotify.com/track/39LLxExYz6ewLAcYrzQQyP?si=fd590ae404c84b36',
-#     'https://open.spotify.com/track/7qiZfU4dY1lWllzX7mPBI3?si=b21aeb3414244152',
-#     'https://open.spotify.com/track/5HCyWlXZPP0y6Gqq8TgA20?si=d167b93b561746db',
-#     'https://open.spotify.com/track/4ZtFanR9U6ndgddUvNcjcG?si=35c8f69e3f4f4e8f',
-#     'https://open.spotify.com/track/27NovPIUIRrOZoCHxABJwK?si=6daa934782ea4cac',
-#     'https://open.spotify.com/track/29m79w9xPMH4YCD6r8JSmV?si=2da43c198b8f44d8',
-#     'https://open.spotify.com/track/58f4twRnbZOOVUhMUpplJ4?si=7bda9bf9084d4830',
-#     'https://open.spotify.com/track/251VdhnEdo9kxdQ7xeGuc3?si=c3f4a69180ed4c28',
-#     'https://open.spotify.com/track/6ZYxNjuAU9Vy3VtF6W1dtE?si=2c2dc410be5049d8',
-#     'https://open.spotify.com/track/5W7DOVGQLTigu09afW7QMT?si=429f8d716bed4508',
-#     'https://open.spotify.com/track/0RGp4KA9wvndxqPIWoKwnD?si=c71b08b8c51f4265',
-#     'https://open.spotify.com/track/0RGp4KA9wvndxqPIWoKwnD?si=e85e8f9e62f440ca',
-#     'https://open.spotify.com/track/2PcGqmKToUz0s65q1Acg7d?si=3fd8ba13abaf4ce9',
-#     'https://open.spotify.com/track/4Dvkj6JhhA12EX05fT7y2e?si=835c23bf18ca417d'
-# ]
-
-# def gen(camera):
-#     while True:
-#         global df1
-#         frame, df1 = camera.get_frame()
-#         yield (b'--frame\r\n'
-#                b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n\r\n')
-
-# @app.route('/video_feed')
-# def video_feed():
-#     return Response(gen(VideoCamera()),
-#                     mimetype='multipart/x-mixed-replace; boundary=frame')
-
-# @app.route('/t')
-# def gen_table():
-#     return df1.to_json(orient='records')
-
-# if __name__ == '__main__':
-#     app.debug = True
-#     app.run()
-
-
-# ----------------------------------------------------------------------------if anything dosent work uncommend this ------------------------------------
-from flask import Flask, render_template, Response, jsonify 
-import gunicorn
+# Main application file for Emotion-Based Music Recommendation System
+from flask import Flask, render_template, Response, jsonify, request, send_from_directory, session, redirect, url_for
 from camera import *
+from database import EmotionMusicDatabase
+import pandas as pd
+import os
+import json
+import time
+import spotipy
+from spotipy.oauth2 import SpotifyOAuth
 
-app = Flask(__name__)
+app = Flask(__name__, static_folder='static')
+app.secret_key = 'dev-secret-change-me'  # TODO: move to env
+
+# Spotify OAuth setup
+client_id = '79293409499a4b08b1d0a409b386c3f3'
+client_secret = 'edf8197acdc546268f1d2d4d1f302af3'
+redirect_uri = 'http://127.0.0.1:5000/callback'
+scope = 'user-read-private user-read-email streaming'
+oauth = SpotifyOAuth(client_id=client_id, client_secret=client_secret, redirect_uri=redirect_uri, scope=scope)
+
+# Initialize database
+db = EmotionMusicDatabase()
+
+# Start a session when the app starts
+current_session_id = db.start_session()
 
 headings = ("Name","Album","Artist")
 df1 = music_rec()
 df1 = df1.head(15)
+
 @app.route('/')
+def landing():
+    # If preferences already set, go to main interface
+    if session.get('age_group') and session.get('language_pref'):
+        return redirect(url_for('index'))
+    return render_template('landing.html')
+
+@app.route('/preferences')
+def preferences():
+    # Clear saved preferences and show selection page again
+    session.pop('age_group', None)
+    session.pop('language_pref', None)
+    return render_template('landing.html')
+
+@app.route('/start', methods=['POST'])
+def start():
+    # Save user preferences
+    session['age_group'] = request.form.get('age_group')
+    session['language_pref'] = request.form.get('language_pref')
+    return redirect(url_for('index'))
+
+@app.route('/home')
 def index():
+    # Main UI after preferences
+    prefs = {
+        'age_group': session.get('age_group', 'unknown'),
+        'language_pref': session.get('language_pref', 'random'),
+    }
     print(df1.to_json(orient='records'))
-    return render_template('index.html', headings=headings, data=df1)
+    return render_template('index.html', headings=headings, data=df1, prefs=prefs)
 
 df1 = pd.DataFrame({
     'SongName': [
@@ -153,6 +115,170 @@ def video_feed():
 def gen_table():
     return df1.to_json(orient='records')
 
+@app.route('/get_emotion')
+def get_emotion():
+    # Get the current emotion from the global variable in camera.py
+    current_emotion = emotion_dict.get(show_text[0], "Unknown")
+    
+    # Log the emotion in the database
+    emotion_id = db.log_emotion(current_emotion)
+    
+    # Increment the emotion count for the current session
+    if current_session_id and emotion_id:
+        db.increment_emotion_count(current_session_id)
+    
+    return jsonify({"emotion": current_emotion})
+
+@app.route('/get_recommendations')
+def get_recommendations():
+    emotion = request.args.get('emotion', '')
+
+    # Map emotion name to index (fallback to Neutral)
+    emotion_index = next((i for i, e in emotion_dict.items() if e.lower() == emotion.lower()), 4)
+
+    # Resolve base CSV path for the detected emotion
+    lang_pref = (session.get('language_pref') or 'english').lower()
+    age_pref = session.get('age_group', 'unknown')
+    base_path = music_dist[emotion_index]
+    root, ext = os.path.splitext(base_path)
+
+    # Strict language-specific CSV selection
+    # - english -> base file (e.g., happy.csv)
+    # - hindi/marathi -> language-specific files (e.g., happy_hindi.csv / happy_marathi.csv)
+    if lang_pref in ('hindi', 'marathi'):
+        csv_path = f"{root}_{lang_pref}{ext}"
+    else:
+        csv_path = base_path
+
+    # Final safety fallback to base file if specific file doesn't exist
+    if not os.path.exists(csv_path):
+        csv_path = base_path
+
+    # Load recommendations
+    try:
+        df = pd.read_csv(csv_path)
+    except Exception as e:
+        print(f"Error reading CSV '{csv_path}': {e}")
+        return jsonify([])
+
+    # Optional age group bias (example heuristic: prefer clean tracks for kids)
+    age_group = session.get('age_group', 'unknown')
+    if age_group == 'kid' and 'Name' in df.columns:
+        df = df[~df['Name'].str.contains('explicit', case=False, na=False)]
+
+    df = df.head(10)  # Limit to 10 recommendations
+
+    # Prepare response data
+    recommendations = []
+    for _, row in df.iterrows():
+        # Extract and sanitize values
+        name = str((row.get('Name') if isinstance(row, dict) else row.get('Name', ''))).strip()
+        artist = str((row.get('Artist') if isinstance(row, dict) else row.get('Artist', ''))).strip()
+        link = str((row.get('URL') if isinstance(row, dict) else row.get('URL', ''))).strip()
+
+        # Skip if any required field is missing/invalid (except URL; we'll fallback to search link)
+        if not name or name.lower() == 'nan':
+            continue
+        if not artist or artist.lower() == 'nan':
+            continue
+
+        # If URL missing, fallback to Spotify search link so rows still show up
+        if not (isinstance(link, str) and link.startswith('http')):
+            try:
+                from urllib.parse import quote_plus
+                query = name + (f" {artist}" if artist else "")
+                link = f"https://open.spotify.com/search/{quote_plus(query)}"
+            except Exception:
+                # As a last resort, skip if we cannot construct a link
+                continue
+
+        # Add Spotify URI if applicable
+        uri = None
+        if link.startswith('https://open.spotify.com/track/'):
+            track_id = link.split('/')[-1].split('?')[0]
+            uri = f'spotify:track:{track_id}'
+
+        song_data = {"name": name, "artist": artist, "link": link, "uri": uri}
+        recommendations.append(song_data)
+
+        # Log recommendation in database if emotion is tracked
+        if emotion:
+            try:
+                emotion_id = db.log_emotion(emotion)
+                db.log_recommendation(emotion_id, name, artist, link)
+            except Exception as e:
+                print(f"Error logging recommendation: {e}")
+                # Continue without stopping the recommendation process
+
+    return jsonify(recommendations)
+
+@app.route('/history')
+def history():
+    # Get emotion and recommendation history
+    emotion_history = db.get_emotion_history(20)
+    recommendation_history = db.get_recommendation_history(20)
+    emotion_stats = db.get_emotion_stats()
+    
+    return render_template('history.html', 
+                          emotion_history=emotion_history,
+                          recommendation_history=recommendation_history,
+                          emotion_stats=emotion_stats)
+
+@app.route('/api/history')
+def api_history():
+    # Get emotion and recommendation history as JSON
+    emotion_history = db.get_emotion_history(20)
+    recommendation_history = db.get_recommendation_history(20)
+    emotion_stats = db.get_emotion_stats()
+    
+    return jsonify({
+        "emotion_history": emotion_history,
+        "recommendation_history": recommendation_history,
+        "emotion_stats": emotion_stats
+    })
+
+def get_token():
+    token_info = session.get('token_info', None)
+    if not token_info:
+        return None
+    now = int(time.time())
+    is_expired = token_info['expires_at'] - now < 60
+    if is_expired:
+        token_info = oauth.refresh_access_token(token_info['refresh_token'])
+        session['token_info'] = token_info
+    return token_info
+
+@app.route('/login')
+def login():
+    auth_url = oauth.get_authorize_url()
+    return redirect(auth_url)
+
+@app.route('/callback')
+def callback():
+    code = request.args.get('code')
+    token_info = oauth.get_access_token(code)
+    session['token_info'] = token_info
+    return redirect(url_for('index'))
+
+@app.route('/get_token')
+def get_token_route():
+    token_info = get_token()
+    if token_info:
+        return jsonify({'access_token': token_info['access_token']})
+    return jsonify({'error': 'Not authenticated'}), 401
+
+@app.route('/logout')
+def logout():
+    session.pop('token_info', None)
+    return redirect(url_for('index'))
+
 if __name__ == '__main__':
-    app.debug = True
-    app.run()
+    try:
+        app.debug = True
+        app.run()
+    finally:
+        # End the session when the app stops
+        if current_session_id:
+            db.end_session(current_session_id)
+        # Close the database connection
+        db.close()
