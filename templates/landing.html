@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Welcome - Emotion Music</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+  <link type="text/css" href="{{ url_for('static', filename='css/modern-style.css') }}" rel="stylesheet" />
+  <style>
+    body { font-family: 'Poppins', sans-serif; }
+    .hero { padding: 60px 0; text-align: center; }
+    .card { border-radius: 12px; }
+  </style>
+</head>
+<body>
+  <div class="container-main container">
+    <header class="app-header">
+      <h1 class="app-title">Welcome to Emotion-Based Music Recommendation</h1>
+      <p class="app-subtitle">Tell us a bit about you to personalize your experience</p>
+    </header>
+
+    <div class="row justify-content-center">
+      <div class="col-md-8">
+        <div class="card">
+          <div class="card-header"><i class="fas fa-user"></i> Your Preferences</div>
+          <div class="card-body">
+            <form method="POST" action="/start">
+              <div class="mb-3">
+                <label class="form-label">Age Group</label>
+                <div class="row g-2">
+                  <div class="col"><div class="form-check">
+                    <input class="form-check-input" type="radio" name="age_group" id="age_kid" value="kid" required>
+                    <label class="form-check-label" for="age_kid">Kid</label>
+                  </div></div>
+                  <div class="col"><div class="form-check">
+                    <input class="form-check-input" type="radio" name="age_group" id="age_teen" value="teenager">
+                    <label class="form-check-label" for="age_teen">Teenager</label>
+                  </div></div>
+                  <div class="col"><div class="form-check">
+                    <input class="form-check-input" type="radio" name="age_group" id="age_middle" value="middle">
+                    <label class="form-check-label" for="age_middle">Middle age</label>
+                  </div></div>
+                  <div class="col"><div class="form-check">
+                    <input class="form-check-input" type="radio" name="age_group" id="age_old" value="old">
+                    <label class="form-check-label" for="age_old">Old</label>
+                  </div></div>
+                </div>
+              </div>
+
+              <div class="mb-3">
+                <label class="form-label">Language Preference</label>
+                <select class="form-select" name="language_pref" required>
+                  <option value="english" selected>English</option>
+                  <option value="hindi">Hindi</option>
+                  <option value="marathi">Marathi</option>
+                </select>
+                <div class="form-text">Choose one language. Recommendations will match your selection.</div>
+              </div>
+
+              <div class="text-center">
+                <button type="submit" class="btn btn-primary">
+                  <i class="fas fa-arrow-right"></i> Continue
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <footer class="app-footer mt-4">
+      <p>© 2023 Emotion-Based Music Recommendation System</p>
+    </footer>
+  </div>
+</body>
+</html>

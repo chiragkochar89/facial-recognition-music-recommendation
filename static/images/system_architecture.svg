@@ -1,0 +1,92 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="600" viewBox="0 0 800 600">
+  <!-- Background -->
+  <rect width="800" height="600" fill="#f8f9fa" />
+  
+  <!-- Title -->
+  <text x="400" y="40" font-family="Arial" font-size="24" text-anchor="middle" font-weight="bold">Emotion-Based Music Recommendation System Architecture</text>
+  
+  <!-- User Interface Layer -->
+  <rect x="50" y="80" width="700" height="100" rx="10" ry="10" fill="#e3f2fd" stroke="#2196f3" stroke-width="2" />
+  <text x="400" y="110" font-family="Arial" font-size="18" text-anchor="middle" font-weight="bold">User Interface Layer</text>
+  
+  <!-- UI Components -->
+  <rect x="100" y="130" width="120" height="40" rx="5" ry="5" fill="#bbdefb" stroke="#1e88e5" stroke-width="1" />
+  <text x="160" y="155" font-family="Arial" font-size="14" text-anchor="middle">Web Interface</text>
+  
+  <rect x="250" y="130" width="120" height="40" rx="5" ry="5" fill="#bbdefb" stroke="#1e88e5" stroke-width="1" />
+  <text x="310" y="155" font-family="Arial" font-size="14" text-anchor="middle">Video Feed</text>
+  
+  <rect x="400" y="130" width="120" height="40" rx="5" ry="5" fill="#bbdefb" stroke="#1e88e5" stroke-width="1" />
+  <text x="460" y="155" font-family="Arial" font-size="14" text-anchor="middle">Music Player</text>
+  
+  <rect x="550" y="130" width="120" height="40" rx="5" ry="5" fill="#bbdefb" stroke="#1e88e5" stroke-width="1" />
+  <text x="610" y="155" font-family="Arial" font-size="14" text-anchor="middle">History View</text>
+  
+  <!-- Application Layer -->
+  <rect x="50" y="200" width="700" height="100" rx="10" ry="10" fill="#e8f5e9" stroke="#4caf50" stroke-width="2" />
+  <text x="400" y="230" font-family="Arial" font-size="18" text-anchor="middle" font-weight="bold">Application Layer</text>
+  
+  <!-- App Components -->
+  <rect x="100" y="250" width="120" height="40" rx="5" ry="5" fill="#c8e6c9" stroke="#43a047" stroke-width="1" />
+  <text x="160" y="275" font-family="Arial" font-size="14" text-anchor="middle">Flask Server</text>
+  
+  <rect x="250" y="250" width="120" height="40" rx="5" ry="5" fill="#c8e6c9" stroke="#43a047" stroke-width="1" />
+  <text x="310" y="275" font-family="Arial" font-size="14" text-anchor="middle">API Routes</text>
+  
+  <rect x="400" y="250" width="120" height="40" rx="5" ry="5" fill="#c8e6c9" stroke="#43a047" stroke-width="1" />
+  <text x="460" y="275" font-family="Arial" font-size="14" text-anchor="middle">Session Mgmt</text>
+  
+  <rect x="550" y="250" width="120" height="40" rx="5" ry="5" fill="#c8e6c9" stroke="#43a047" stroke-width="1" />
+  <text x="610" y="275" font-family="Arial" font-size="14" text-anchor="middle">Data Processing</text>
+  
+  <!-- Core Processing Layer -->
+  <rect x="50" y="320" width="700" height="100" rx="10" ry="10" fill="#fff3e0" stroke="#ff9800" stroke-width="2" />
+  <text x="400" y="350" font-family="Arial" font-size="18" text-anchor="middle" font-weight="bold">Core Processing Layer</text>
+  
+  <!-- Core Components -->
+  <rect x="100" y="370" width="120" height="40" rx="5" ry="5" fill="#ffe0b2" stroke="#fb8c00" stroke-width="1" />
+  <text x="160" y="395" font-family="Arial" font-size="14" text-anchor="middle">Video Capture</text>
+  
+  <rect x="250" y="370" width="120" height="40" rx="5" ry="5" fill="#ffe0b2" stroke="#fb8c00" stroke-width="1" />
+  <text x="310" y="395" font-family="Arial" font-size="14" text-anchor="middle">Face Detection</text>
+  
+  <rect x="400" y="370" width="120" height="40" rx="5" ry="5" fill="#ffe0b2" stroke="#fb8c00" stroke-width="1" />
+  <text x="460" y="395" font-family="Arial" font-size="14" text-anchor="middle">CNN Model</text>
+  
+  <rect x="550" y="370" width="120" height="40" rx="5" ry="5" fill="#ffe0b2" stroke="#fb8c00" stroke-width="1" />
+  <text x="610" y="395" font-family="Arial" font-size="14" text-anchor="middle">Music Matcher</text>
+  
+  <!-- Data Layer -->
+  <rect x="50" y="440" width="700" height="100" rx="10" ry="10" fill="#f3e5f5" stroke="#9c27b0" stroke-width="2" />
+  <text x="400" y="470" font-family="Arial" font-size="18" text-anchor="middle" font-weight="bold">Data Layer</text>
+  
+  <!-- Data Components -->
+  <rect x="100" y="490" width="120" height="40" rx="5" ry="5" fill="#e1bee7" stroke="#8e24aa" stroke-width="1" />
+  <text x="160" y="515" font-family="Arial" font-size="14" text-anchor="middle">SQLite Database</text>
+  
+  <rect x="250" y="490" width="120" height="40" rx="5" ry="5" fill="#e1bee7" stroke="#8e24aa" stroke-width="1" />
+  <text x="310" y="515" font-family="Arial" font-size="14" text-anchor="middle">Emotion History</text>
+  
+  <rect x="400" y="490" width="120" height="40" rx="5" ry="5" fill="#e1bee7" stroke="#8e24aa" stroke-width="1" />
+  <text x="460" y="515" font-family="Arial" font-size="14" text-anchor="middle">Song Datasets</text>
+  
+  <rect x="550" y="490" width="120" height="40" rx="5" ry="5" fill="#e1bee7" stroke="#8e24aa" stroke-width="1" />
+  <text x="610" y="515" font-family="Arial" font-size="14" text-anchor="middle">Spotify API</text>
+  
+  <!-- Arrows -->
+  <!-- UI to App -->
+  <line x1="400" y1="180" x2="400" y2="200" stroke="#424242" stroke-width="2" marker-end="url(#arrowhead)" />
+  
+  <!-- App to Core -->
+  <line x1="400" y1="300" x2="400" y2="320" stroke="#424242" stroke-width="2" marker-end="url(#arrowhead)" />
+  
+  <!-- Core to Data -->
+  <line x1="400" y1="420" x2="400" y2="440" stroke="#424242" stroke-width="2" marker-end="url(#arrowhead)" />
+  
+  <!-- Arrowhead definition -->
+  <defs>
+    <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#424242" />
+    </marker>
+  </defs>
+</svg>
