@@ -133,13 +133,17 @@ facial-recognition-music-recommendation
 ├── requirements.txt
 ├── haarcascade_frontalface_default.xml
 │
-├── templates
-│   └── index.html
+├── templates/
+│ └── index.html
 │
-├── images
-│   ├── architecture.png
-│   ├── demo1.png
-│   └── demo2.png
+├── static/
+├── songs/
+├── scripts/
+│
+├── images/
+│ ├── architecture.png
+│ ├── demo1.png
+│ └── demo2.png
 │
 └── README.md
 ```
@@ -237,3 +241,4 @@ Allow **camera permission** when prompted.
 # 📜 License
 
 This project is developed for **academic and educational purposes**.
+⭐ If you like this project, give it a star!
